@@ -9,14 +9,16 @@ puppeteer
     await page.waitForSelector('body');
 
     let grabCoins = await page.evaluate(() => {
-      let allCoins = document.body.querySelectorAll('.coin-base-data-wrapper');
+      let allCoins = document.body.querySelectorAll('table tr.coin.ng-star-inserted');
       scrapeItems = [];
       allCoins.forEach((item) => {
         try {
           coinName = item.querySelector('.full-name').innerText;
+          coinPrice =item.querySelector('.currency').innerText;
         } catch (err) {}
         scrapeItems.push({
           coinName,
+          coinPrice
         });
       });
       let items = {
